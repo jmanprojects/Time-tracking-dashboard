@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Time tracking dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+  body{
+    font-family: 'Rubik', sans-serif;
+  }
+  .schedule-list{
+    display: flex;
+    list-style: none;
+    text-align: center;
+    color: #fff;
+  }
+
+  .schedule-list-item{
+    margin: auto;
+  }
+
+  .container-box{
+    width: auto;
+    padding-top: 10%;
+  }
+
+
+  .box-card{
+    margin-top: 50px;
+    padding-top: 30px;
+    border-radius: 15px;
+
+  }
+
+  .box-card img{
+    width: 20%;
+    margin-top: -10%;
+    height: auto;
+    float: right;
+  }
+
+  .card-time{
+    position: relative;
+    background-color: hsl(235, 46%, 20%);
+    border-radius: 15px;
+    color: #fff;
+  }
+
+  #work-div{
+    background-color: hsl(15, 100%, 70%);
+  }
+
+  #play-div{
+    background-color: hsl(195, 74%, 62%);
+  }
+
+  #study-div{
+    background-color: hsl(348, 100%, 68%);
+  }
+
+  #exercise-div{
+    background-color: hsl(145, 58%, 55%);
+  }
+
+  #social-div{
+    background-color: hsl(264, 64%, 52%);
+  }
+
+  #self-div{
+    background-color: hsl(43, 84%, 65%);
+  }
+
+
+  .descktop-class{
+    margin-top: -11%;
+    background-color: #5746ea;
+    border-radius: 15px;
+  }
+
+  .card-title{
+    display: flex;
+  }
+
+  .card-content{
+    display: flex;
+  }
+  @media only screen and (min-width: 768px){
+  
+    .descktop-class{
+      margin-top: -53%;
+      display: grid;
+    }
+
+    .schedule-list{
+    display: grid;
+    justify-content: left;
+    text-align: left;
+    list-style: none;
+    color: #fff;
+  }
+
+  .schedule-list-item{
+    margin: 10px 0 5px 0;
+    color: gray;
+  }
+
+  .schedule-list-item:hover{
+    color: #fff;
+  }
+
+  .list-time{
+    margin-top: 20px;
+  }
+
+  .container-box{
+    margin-top: 3.5%;
+    padding-bottom: 16.5%;
+  }
+  .card-content{
+    display: grid;
+  }
+
+  
+  
+}
+  
+ </style>
+</head>
+<body class="container" style="background-color: hsl(226, 43%, 10%);">
+
+    <div class="row p-3 vh-100 justify-content-center align-items-center">
+      <div class="col-12 col-md-3 container-box"  style="background-color: hsl(235, 46%, 20%); border-radius: 15px;">
+          <div class="box">
+            <div class="row pt-4 pb-4 descktop-class">
+              <div class="col-3 col-md-4">
+                <img class="rounded-5" style="width: 100%; height: auto; border: 2px solid #fff;" src="images/image-jeremy.png" alt="">
+              </div>
+              <div class="col-9 col-md-8 pt-4" >
+                <p style="color:azure;">Report for</p>
+                <h4 style="color: #fff;">Jeremy Robson</h4>
+
+              </div>
+            </div>
+          </div>
+          <div class="list-time">
+            <ul class="schedule-list">
+              <li id="getDayli" value="0" class="schedule-list-item mt-2" style="cursor: pointer;">Dayli</li>
+              <li id="getWeekly" value="1" class="schedule-list-item mt-2" style="cursor: pointer;">Weekly</li>
+              <li id="getMonthly" value="2" class="schedule-list-item mt-2" style="cursor: pointer;">Monthly</li>
+            </ul>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-9">
+        <div class="row" id="cardsContent">
+
+
+          
+
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <script>
+
+    var obj = [
+  {
+    "title": "Work",
+    "icon": "images/icon-work.svg",
+    "styleClass": "work-div",
+    "timeframes": {
+      "daily": {
+        "current": 5,
+        "previous": 7
+      },
+      "weekly": {
+        "current": 32,
+        "previous": 36
+      },
+      "monthly": {
+        "current": 103,
+        "previous": 128
+      },
+      
+    }
+  },
+  {
+    "title": "Play",
+    "icon": "images/icon-play.svg",
+    "styleClass": "play-div",
+    "timeframes": {
+      "daily": {
+        "current": 1,
+        "previous": 2
+      },
+      "weekly": {
+        "current": 10,
+        "previous": 8
+      },
+      "monthly": {
+        "current": 23,
+        "previous": 29
+      }
+    }
+  },
+  {
+    "title": "Study",
+    "icon": "images/icon-study.svg",
+    "styleClass": "study-div",
+    "timeframes": {
+      "daily": {
+        "current": 0,
+        "previous": 1
+      },
+      "weekly": {
+        "current": 4,
+        "previous": 7
+      },
+      "monthly": {
+        "current": 13,
+        "previous": 19
+      }
+    }
+  },
+  {
+    "title": "Exercise",
+    "icon": "images/icon-exercise.svg",
+    "styleClass": "exercise-div",
+    "timeframes": {
+      "daily": {
+        "current": 1,
+        "previous": 1
+      },
+      "weekly": {
+        "current": 4,
+        "previous": 5
+      },
+      "monthly": {
+        "current": 11,
+        "previous": 18
+      }
+    }
+  },
+  {
+    "title": "Social",
+    "icon": "images/icon-social.svg",
+    "styleClass": "social-div",
+    "timeframes": {
+      "daily": {
+        "current": 1,
+        "previous": 3
+      },
+      "weekly": {
+        "current": 5,
+        "previous": 10
+      },
+      "monthly": {
+        "current": 21,
+        "previous": 23
+      }
+    }
+  },
+  {
+    "title": "Self Care",
+    "icon": "images/icon-self-care.svg",
+    "styleClass": "self-div",
+    "timeframes": {
+      "daily": {
+        "current": 0,
+        "previous": 1
+      },
+      "weekly": {
+        "current": 2,
+        "previous": 2
+      },
+      "monthly": {
+        "current": 7,
+        "previous": 11
+      }
+    }
+  }
+];
+
+       var dayli = document.getElementById('getDayli');
+       var buttons = document.getElementsByClassName('schedule-list-item');
+       var card = $('#cardsContent');
+
+       ( ( )=> {
+          var result = changeTime(0);
+          dayli.style.color = '#fff';
+          card.html(result);
+        }) ( );
+
+
+
+        for(var i = 0; i<= buttons.length-1; i++){
+          buttons[i].onclick =  (ev)=>{
+            var result = changeTime(ev.currentTarget.value);
+            card.html(result);
+            for(var o = 0; o <= buttons.length-1; o++){
+              if (buttons[o].style.color = '#fff') {
+                    buttons[o].style.color = "gray";
+                } 
+            }
+            ev.currentTarget.style.color= '#fff';
+          }
+        }
+
+
+      function changeTime(time){
+        var content = '';
+        var timeframes;
+        var timeWord = '';
+        obj.forEach(element => {
+
+          if(time == 0){
+            timeframes = element.timeframes.daily.current;
+            timeWord = 'Last day - ' + element.timeframes.daily.previous+'hrs';
+          }
+          if(time == 1){
+            timeframes = element.timeframes.weekly.current;
+            timeWord = 'Last week - ' + element.timeframes.weekly.previous+'hrs';
+          }
+          if(time == 2){
+            timeframes = element.timeframes.monthly.current;
+            timeWord = 'Last month - ' + element.timeframes.monthly.previous+'hrs';
+          }
+          content += `
+
+          <div class="col-12 col-md-4">
+            <div class="">
+              <div class="col-12 col-md-12 mt-2">
+                <div class="box-card" id="${element.styleClass}">
+                  <img src="${element.icon}" alt="">
+                  <div class="card-time" >
+                    <div class="justify-content-between p-4 card-title" >
+                      <h6 class="pt-2">${element.title}</h6>
+                      <span style="font-size: 20px; cursor:pointer;"><b>...</b></span>
+                     </div>
+                     <div class="justify-content-between p-4 card-content" >
+                      <h2 style="font-size: 40px;">${timeframes}hrs</h2>
+                      <p class="mt-3">${timeWord}</p>
+                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          `;
+        });
+
+        return content;
+      }
+
+
+
+
+  </script>
+  
+</body>
+</html>
