@@ -4,5 +4,4 @@
 
 ## Welcome! 👋
 
-design and obtaining data from a json file. Nothing is needed to make the code work.
-If you like it or want to make modifications, go ahead.
+You don't need to install anything or configure anything, everything is html and css. If you like it or want to make modifications, go ahead.
